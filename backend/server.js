@@ -5,12 +5,11 @@ cloudinary.v2.config({                                  //configure cloudinary
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,      //cloudinary cloud name
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret:process.env.CLOUDINARY_API_SECRET,
-});
+});                  //use errorMiddleware to handle errors
+
+const PORT=process.env.PORT || 8085;
 
 
-app.listen(process.env.PORT, () => {                    //start the server.process.env is a global object in Node.js that provides access to environment variables,
-    console.log(`server running on port ${process.env.PORT}`);  //app.listen() is a callback function that gets called once the server is running
-});
-
-
-
+app.listen(PORT, () => {
+    console.log(`server is up and running on port number: ${PORT}`)
+}); 

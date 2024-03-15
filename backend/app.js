@@ -10,9 +10,15 @@ import applicationRouter from "./routes/applicationRouter.js";      //import app
 
 import { dbConnection } from './database/dbConnection.js';       //import dbConnection function from dbConnection.js
 
+import errorMiddleware from './middlewares/error.js';   
 const app=express();
 
 dotenv.config({path :'./config/config.env'});   //load env variables to process.env
+
+// app.listen(process.env.PORT,() => {                    //start the server.process.env is a global object in Node.js that provides access to environment variables,
+//   console.log(`server running on port ${process.env.PORT}`);  //app.listen() is a callback function that gets called once the server is running
+// });
+
 
 app.use(cors({
     origin: [process.env.FRONTEND_URL],      //the server will allow requests from to this origin
@@ -37,7 +43,7 @@ app.use(
 
 dbConnection();                           //call dbConnection function to connect to database
 
-
+app.use(errorMiddleware);                  //use errorMiddleware to handle errors
 
 
 
