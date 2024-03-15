@@ -57,4 +57,4 @@ userSchema.methods.getJWTToken = function () {    //getJWTToken is a method that
   });
 };
 
-export const User = mongoose.model("User", userSchema);
+export const User = mongoose.model("User", userSchema);   //exporting the User model
