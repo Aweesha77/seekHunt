@@ -4,9 +4,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 
-import jobRouter from "./routes/jobRoutes.js";
-import userRouter from "./routes/userRoutes.js";                    //import userRouter
-import applicationRouter from "./routes/applicationRoutes.js";
+import jobRouter from "./routes/jobRouter.js";
+import userRouter from "./routes/userRouter.js";                    //import userRouter
+import applicationRouter from "./routes/applicationRouter.js";      //import applicationRouter
 
 import { dbConnection } from './database/dbConnection.js';       //import dbConnection function from dbConnection.js
 
