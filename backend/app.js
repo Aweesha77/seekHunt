@@ -4,6 +4,12 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 
+import jobRouter from "./routes/jobRoutes.js";
+import userRouter from "./routes/userRoutes.js";                    //import userRouter
+import applicationRouter from "./routes/applicationRoutes.js";
+
+import { dbConnection } from './database/dbConnection.js';       //import dbConnection function from dbConnection.js
+
 const app=express();
 
 dotenv.config({path :'./config/config.env'});   //load env variables to process.env
@@ -24,5 +30,15 @@ app.use(
       tempFileDir: "/tmp/",               //directory for temp files
     })
   );
+
+  app.use("/api/v1/user", userRouter);     //use userRouter for all routes starting with /api/v1/user
+  app.use("/api/v1/job", jobRouter);
+  app.use("/api/v1/application", applicationRouter);
+
+dbConnection();                           //call dbConnection function to connect to database
+
+
+
+
 
 export default app;
