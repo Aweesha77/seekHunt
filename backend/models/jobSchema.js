@@ -49,3 +49,15 @@ const jobSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  jobPostedOn: {
+    type: Date,
+    default: Date.now,
+  },
+  postedBy: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
+});
+
+export const Job = mongoose.model("Job", jobSchema);
