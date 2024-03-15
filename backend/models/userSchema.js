@@ -51,10 +51,26 @@ userSchema.methods.comparePassword = async function (enteredPassword) {       //
 };
 
 //GENERATING A JWT TOKEN WHEN A USER REGISTERS OR LOGINS, IT DEPENDS ON OUR CODE THAT WHEN DO WE NEED TO GENERATE THE JWT TOKEN WHEN THE USER LOGIN OR REGISTER OR FOR BOTH. 
-userSchema.methods.getJWTToken = function () {    //getJWTToken is a method that we will use to generate a JWT token.method getJWTToken to the userSchema in Mongoose. This method will generate a JWT token for the user when they register or login.
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {    //jwt.sign() is a method that generates a JWT token. It takes three parameters: the payload, the secret key, and the options.
-    expiresIn: process.env.JWT_EXPIRES,
+userSchema.methods.getJWTToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
+    expiresIn: 60 * 60 * 24 * 2, // expires in 2 days
   });
 };
 
 export const User = mongoose.model("User", userSchema);   //exporting the User model
+export const sendToken = (user, statusCode, res, message) => {
+  const token = user.getJWTToken();
+  const options = {
+    expires: new Date(
+      Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+  };
+
+  res.status(statusCode).cookie("token", token, options).json({
+    success: true,
+    user,
+    message,
+    token,
+  });
+};
