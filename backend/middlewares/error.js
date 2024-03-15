@@ -1,11 +1,11 @@
 class ErrorHandler extends Error {                
-    constructor(message, statusCode) {      
+    constructor(message, statusCode) {       //create err object with message and status code
       super(message);   
-      this.statusCode = statusCode;   
+      this.statusCode = statusCode;     //why this code.i think not necessary
     }
 }
   
-  export const errorMiddleware = (err, req, res, next) => {
+  export const errorMiddleware = (err, req, res, next) => {   //errorMiddleware is a function that takes four parameters: err, req, res, and next. This function will be used to handle errors in the application.
     err.message = err.message || "Internal Server Error";
     err.statusCode = err.statusCode || 500;
   
