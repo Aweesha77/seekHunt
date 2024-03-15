@@ -1,10 +1,10 @@
 import { catchAsyncErrors } from "../middlewares/catchAsyncError.js";
 import { User } from "../models/userSchema.js";
 import ErrorHandler from "../middlewares/error.js";
-//import { sendToken } from "../utils/jwtToken.js";
+import { sendToken } from "../utils/jwtToken.js";
 
 export const register = catchAsyncErrors(async (req, res, next) => {     //register is a function that takes three parameters: req, res, and next. This function will be used to handle errors in the application.
-  const { name, email, phone, password, role } = req.body;
+  const { name, email, phone, password, role } = req.body;   //req.body is an object that contains the parsed request body
   if (!name || !email || !phone || !password || !role) {
     return next(new ErrorHandler("Please fill full form!"));
   }
@@ -12,7 +12,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {     //regis
   if (isEmail) {
     return next(new ErrorHandler("Email already registered!"));
   }
-  const user = await User.create({
+  const user = await User.create({        //User.create() is a method that creates a new user in the database
     name,
     email,
     phone,
@@ -20,13 +20,13 @@ export const register = catchAsyncErrors(async (req, res, next) => {     //regis
     role,
   });
 
-  res.status(201).json({
-    success: true,
-    message: "User Registered!",
-    user,
-  });
+//   res.status(201).json({    //res.status() is a method that sets the HTTP status for the response. It takes one parameter: the status code
+//     success: true,
+//     message: "User Registered!",
+//     user,  //user is an object that contains the user information
+//   });
 
-  //sendToken(user, 201, res, "User Registered!");
+  sendToken(user, 201, res, "User Registered!");
 });
 
 // export const login = catchAsyncErrors(async (req, res, next) => {
