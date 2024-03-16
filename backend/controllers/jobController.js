@@ -123,6 +123,7 @@ export const deleteJob = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+
 export const getSingleJob = catchAsyncErrors(async (req, res, next) => {
   const { id } = req.params;
   try {
